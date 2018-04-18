@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<!-- release v4.4.6, copyright 2014 - 2017 Kartik Visweswaran -->
+<!--suppress JSUnresolvedLibraryURL -->
+<html lang="es">
+<head>
+
+    <meta charset="UTF-8"/>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+
+    <title>Informe Audiciones 2017 OFGC</title>
+    <link rel="stylesheet"  type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet"  type="text/css" href="css/bootstrap-table.min.css">
+    <link rel="stylesheet"  type="text/css" href="css/bootstrap-editable.css">
+    <link rel="stylesheet"  type="text/css" href="css/select2.min.css" />
+    <link rel="stylesheet"  type="text/css" href="css/bootstrap-table-filter-control.css">
+    <link rel="stylesheet"  type="text/css" href="css/fileinput.min.css" media="all" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet"  type="text/css" href="css/fileinput-rtl.min.css" rel="stylesheet">
+<!-- Latest compiled and minified JavaScript -->
+
+    <script src="js/jquery.js"></script>
+	  <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootstrap-table.min.js"></script>
+    <script src="js/bootstrap-editable.js"></script>
+    <script src="js/bootstrap-table-editable.js"></script>
+    <script src="js/bootstrap-table-export.js"></script>
+    <script src="//rawgit.com/hhurz/tableExport.jquery.plugin/master/tableExport.js"></script>
+    <script src="js/bootstrap-table-filter-control.js"></script>
+    <script src="js/fileinput.min.js" type="text/javascript"></script>
+
+	<!--script src="js/bootstrap-table-filter-control.js"></script-->
+
+    <style type="text/css">
+     
+    </style>
+
+</head>
+
+    <style type="text/css">
+   
+    </style>
+    <script type="text/javascript">
+
+      // solo por si necesito poner java en la prncipal... ahora uso scrips_jx.js
+    </script> 
+<!-- BOTONES -->
+    <div class='container'>
+       </button>
+       <button id="botontableprincipal" type="" class="btn btn-primary" >
+       <span class="fa fa-address-book-o" ></span> Tabla de inscritos
+       </button>  
+       <button id="botonresumen" type="" class="btn btn-success" >
+       <span class="fa fa-address-book-o" ></span> Resumen
+       </button> 
+       <button id="modificarestado" type="" class="btn btn-warning" >
+       <span class="fa fa-address-book-o" ></span> modificar MASIVA
+       </button> 
+       <button id="botonmostraronda1" type="" class="btn btn-info" >
+       <span class="fa fa-address-book-o" ></span> Resumen Rondas
+       </button>
+
+    </div>
+
+<!-- FIN DE BOTONES -->
+
+<body>
+    <div class="container">
+        <h1>Informe Audiciones</h1>
+        <table id="table"
+           data-toolbar="#toolbar"
+           data-search="false"
+           data-show-refresh="true"
+           data-show-toggle="true"
+           data-show-columns="true"
+           data-show-export="true"
+           data-detail-view="true"
+           data-minimum-count-columns="2"
+           data-show-pagination-switch="true"
+           data-pagination="true"
+           data-id-field="id"
+           data-page-list="[10, 25, 50, 100, ALL]"
+           data-show-footer="false"
+           data-toolbar="#toolbar"
+           data-filter-control="true"></table>
+
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <table id='table1'>
+                </table>
+            </div>
+            <div class="col-md-6">
+                <table id='table2'>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+<!--INICIO Ventana modal para modificar NOTAS -->
+
+ <div class="modal fade" id="mostrarmodal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+           <div class="modal-header">
+              <h3> Modificación masiva de FLAG</h3>
+           </div>
+           <div id="contenido_modal" class="modal-body"> 
+                <form id='form-edit' class="form-horizontal" method="post" action="">
+                    <div class="filas">
+
+                        <div class="row">
+                          <div class="col-lg-6">
+                            
+                            <div class="input-group">
+                              
+                              <input id="inputmodal" name="inputmodal" type="text" class="form-control" placeholder="DNI , CV , PERMISO , TODO OK">
+                              <span class="input-group-btn">
+                                <button id="buttonmodal" class="btn btn-warning" type="button">Guardar Cambio</button>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                            
+                    </div>
+                </form>      
+
+           </div>
+           <div class="modal-footer">
+            <div id="footer"></div>
+            <a id="cerrarmodal" href="#" data-dismiss="modal" class="btn btn-danger">Cerrar</a> 
+           </div>
+      </div>
+   </div>
+</div>
+
+<!-- FIN Ventana modal paa respuesta -->  
+
+<!--INICIO Ventana modal para mostrar resumen -->
+
+ <div class="modal fade" id="mostrarmodalresumen">
+      <div class="modal-dialog">
+        <div class="modal-content">
+           <div class="modal-header">
+              <h3> Resumen de inscripciones</h3>
+           </div>
+           <div class="modal-body">     
+                <div id='datosresumen'></div>
+           </div>
+           <div class="modal-footer">
+            <div id="footer"></div>
+            <a id="cerrarmodal" href="#" data-dismiss="modal" class="btn btn-danger">Cerrar</a> 
+           </div>
+      </div>
+   </div>
+</div>
+
+<!-- FIN Ventana modal paa respuesta -->  
+<!--INICIO Ventana modal para subir ficheros -->
+<!-- Modal1 -->
+<form id='form-file' class="form-horizontal" method="post" action="updatefile.php">
+
+ <div class="modal fade" id="modalfile">
+      <div class="modal-dialog">
+        <div class="modal-content">
+           <div class="modal-header">
+              <h3> Resumen de inscripciones</h3>
+           </div>
+           <div class="modal-body">     
+              <label class="control-label">Select File</label>
+              <div class="file-loading"> 
+                  <input id="images" name="images[]" type="file" class="file" multiple>
+              </div>
+           </div>
+           <div class="modal-footer">
+            <div id="footer"></div>
+            <a id="cerrarmodal" href="#" data-dismiss="modal" class="btn btn-danger">Cerrar</a> 
+           </div>
+      </div>
+   </div>
+</div>
+
+
+
+
+
+
+</form>
+
+<!-- FIN Ventana modal para el subida de ficheros -->  
+
+
+</body>
+
+
+</html>
+<script type="text/javascript">
+
+
+</script>    
+<script src="js/inputjx2.js" type="text/javascript"></script>
+<script src="js/resultadojx2.js" type="text/javascript"></script>
+
+
+
+                       
